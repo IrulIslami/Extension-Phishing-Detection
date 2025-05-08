@@ -1,0 +1,4 @@
+Dataset/CEAS_08.csv
+Dataset/Clean/all_cleaned_shi.csv
+Dataset/phishing_email.csv
+Model/80000_rf_classic.pkl
