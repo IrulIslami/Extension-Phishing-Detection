@@ -1,4 +1,4 @@
-# Ignore specific dataset and model files its all big size
+# Ignore large datasets and models
 Dataset/CEAS_08.csv
 Dataset/Clean/all_cleaned_shi.csv
 Dataset/phishing_email.csv
