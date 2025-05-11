@@ -3,8 +3,7 @@ let model;
 
 // Fungsi mock loading model (implementasi aktual tergantung format model)
 async function loadModel() {
-  // Contoh: Gunakan TensorFlow.js
-  // return tf.loadLayersModel('model/model.json');
+
   return {
     predict: (text) => {
       // Implementasi prediksi aktual akan diisi di sini

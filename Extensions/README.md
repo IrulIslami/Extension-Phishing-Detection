@@ -81,18 +81,3 @@ To use your actual .pkl model, you'll need to:
    }
    ```
 
-## Future Improvements
-
-- Add more sophisticated feature extraction
-- Improve the accuracy of the classification algorithm
-- Add user feedback mechanisms for false positives/negatives
-- Provide more detailed explanations of why an email was flagged
-- Add customization options for sensitivity levels
-
-## Troubleshooting
-
-If the extension isn't working properly:
-1. Check the console for errors
-2. Verify that the content script is correctly targeting email elements
-3. Try reloading the extension
-4. Ensure all files are properly structured in the extension directory
