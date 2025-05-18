@@ -2,63 +2,47 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Phishing Detector</title>
-    <style>
-        body {
-            width: 350px;
-            padding: 15px;
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            font-size: 18px;
-            color: #333;
-            text-align: center;
-        }
-        textarea {
-            width: 100%;
-            height: 150px;
-            margin: 10px 0;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        .result {
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 4px;
-            text-align: center;
-        }
-        .safe {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        .phishing {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-        .loading {
-            display: none;
-            text-align: center;
-            margin: 10px 0;
-        }
-    </style>
+    <title>HookShield</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-    <h1>Phishing Email Detector</h1>
-    <textarea id="emailContent" placeholder="Paste email content here..."></textarea>
-    <button id="checkButton">Check for Phishing</button>
-    <div class="loading" id="loadingIndicator">Analyzing...</div>
-    <div class="result" id="resultContainer" style="display: none;">
-        <h2 id="resultTitle">Result</h2>
-        <p id="resultText"></p>
-        <p id="confidenceText"></p>
+    <!-- Initial View with Logo and Start Button -->
+    <div class="container initial-state" id="initialView">
+        <div class="shield-logo-large" id="shieldLogoPlaceholder">
+            <!-- Logo will be added manually -->
+        </div>
+        <!--<div class="app-name">HOOKSHIELD</div> -->
+        <button class="start-button" id="startButton">START</button>
+    </div>
+    
+    <!-- Input View with Text Area and Detect Button -->
+    <div class="container input-state" id="inputView">
+        <div class="logo-container">
+            <div class="logo-placeholder" id="logoPlaceholder">
+                <!-- Logo will be added manually -->
+            </div>
+            <div class="app-name">HookShield</div>
+        </div>
+        <div class="tagline">Don't Get Hooked, Scan Before You're Cooked!</div>
+        
+        <div class="content-section">
+            <div class="content-label">Content</div>
+            <div class="content-sublabel">Paste or input the mail you want to check.*</div>
+            <textarea class="input-box" id="emailContent" placeholder=""></textarea>
+        </div>
+        
+        <button class="detect-button" id="detectButton">DETECT</button>
+    </div>
+    
+    <!-- Result View with Gauge and Finish Button -->
+    <div class="container result-state" id="resultView">
+        <div class="gauge-container" id="gaugeContainer">
+            <!-- Gauge will be generated with JS -->
+        </div>
+        <div id="percentageDisplay" class="percentage-display">67%</div>
+        <div class="chance-text">CHANCE OF A PHISHING EMAIL</div>
+        <button class="finish-button" id="finishButton">FINISH</button>
     </div>
     
     <script src="popup.js"></script>
