@@ -17,8 +17,7 @@
     "clipboardWrite"
   ],
   "host_permissions": [
-    "http://localhost:5000/*",
-    "https://your-production-domain.com/*"
+    "http://54.166.156.1:5000/*"
   ],
   "background": {
     "service_worker": "background.js"

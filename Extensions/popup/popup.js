@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
       resultContainer.style.display = 'none';
 
       try {
-          const response = await fetch('http://localhost:5000/predict', {
+          const response = await fetch('http://54.166.156.1:5000/predict', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
