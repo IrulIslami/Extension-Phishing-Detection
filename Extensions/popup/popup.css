@@ -1,4 +1,4 @@
-/* Reset dasar untuk body */
+/* Base setup */
 body {
     background: linear-gradient(to bottom, 
         rgba(101, 40, 224, 0.15) 0%, 
@@ -14,7 +14,6 @@ body {
     box-sizing: border-box;
 }
 
-/* Container umum */
 .container {
     display: flex;
     flex-direction: column;
@@ -25,7 +24,7 @@ body {
     width: 100%;
 }
 
-/* Initial State (Gambar 6) */
+/* Welcome screen */
 .initial-state {
     justify-content: space-between;
     padding-top: 60px;
@@ -50,7 +49,7 @@ body {
     text-align: center;
 }
 
-/* Input State (Gambar 4) */
+/* Input screen */
 .input-state {
     align-items: flex-start;
     padding-top: 15px;
@@ -110,40 +109,143 @@ body {
     margin-bottom: 20px;
 }
 
-/* Result State (Gambar 5) */
+/* Results screen */
 .result-state {
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    text-align: center;
+    justify-content: space-between;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    min-height: 100%;
+}
+
+/* Gauge animation system */
+.gauge-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gauge-wrapper.center-position {
+    transform: translateY(60px);
+}
+
+.gauge-wrapper.top-position {
+    transform: translateY(0);
 }
 
 .gauge-container {
     position: relative;
-    width: 200px;
-    height: 200px;
-    margin: 20px auto;
+    width: 180px;
+    height: 120px;
+    margin: 0 auto;
+    margin-top: 20px;
 }
 
 .percentage-display {
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
     color: #333;
+    display: none; /* Hidden when using SVG gauge */
 }
 
 .chance-text {
     text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 30px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 15px;
     text-transform: uppercase;
+    color: #666;
+    letter-spacing: 0.5px;
+}
+
+/* Risk description box */
+.result-description {
+    width: calc(100% - 40px);
+    padding: 14px 16px;
+    margin: 0 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #333;
+    text-align: left;
+    max-height: 130px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.result-description.show {
+    opacity: 1;
+}
+
+/* Risk level badges */
+.result-description .risk-level {
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.result-description .risk-level.low {
+    color: #2e7d32;
+    background-color: #e8f5e9;
+}
+
+.result-description .risk-level.medium {
+    color: #ef6c00;
+    background-color: #fff3e0;
+}
+
+.result-description .risk-level.high {
+    color: #c62828;
+    background-color: #ffebee;
+}
+
+.result-description .description-text {
+    margin-bottom: 10px;
+    line-height: 1.6;
+    color: #444;
+}
+
+.result-description .recommendation {
+    font-style: normal;
+    color: #555;
+    padding-top: 10px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.result-description .research-ref {
+    font-size: 10px;
+    color: #999;
+    margin-top: 8px;
+    text-align: right;
+    font-style: italic;
 }
 
 /* Buttons */
-.start-button, .detect-button, .finish-button {
+.start-button, 
+.detect-button, 
+.finish-button {
     background-color: #6528e0;
     color: white;
     border: none;
@@ -155,21 +257,82 @@ body {
     cursor: pointer;
     text-transform: uppercase;
     margin-top: auto;
+    box-shadow: 0 4px 15px rgba(101, 40, 224, 0.3);
+    transition: background-color 0.3s ease;
 }
 
-.detect-button, .finish-button {
+.start-button:hover, 
+.detect-button:hover, 
+.finish-button:hover {
+    background-color: #5420c8;
+}
+
+.detect-button {
     width: 100%;
 }
 
-/* State Display Control */
-.initial-state {
-    display: none; /* Set to flex when active */
+/* Loading state */
+.detect-button.loading {
+    background-color: #999999;
+    cursor: not-allowed;
+    box-shadow: none;
+    transition: all 0.3s ease;
 }
 
-.input-state {
-    display: none; /* Set to block when active */
+.loading-text {
+    display: inline-block;
+    position: relative;
 }
 
+.loading-text::after {
+    content: "....";
+    position: absolute;
+    animation: dots 1.5s infinite steps(4, end);
+}
+
+@keyframes dots {
+    0% { content: "."; }
+    25% { content: ".."; }
+    50% { content: "..."; }
+    75%, 100% { content: "...."; }
+}
+
+.finish-button {
+    width: 160px;
+    margin: 0 auto;
+    padding: 10px 0;
+    font-size: 14px;
+    margin-top: auto;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.finish-button.show {
+    opacity: 1;
+}
+
+/* View controls - JS handles visibility */
+.initial-state,
+.input-state,
 .result-state {
-    display: none; /* Set to flex when active */
+    display: none;
+}
+
+/* Custom scrollbar */
+.result-description::-webkit-scrollbar {
+    width: 5px;
+}
+
+.result-description::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+.result-description::-webkit-scrollbar-thumb {
+    background: #bbb;
+    border-radius: 5px;
+}
+
+.result-description::-webkit-scrollbar-thumb:hover {
+    background: #999;
 }
