@@ -1,14 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "Phishing Email Detector",
-  "version": "1.0",
-  "description": "Detects phishing emails in your inbox",
+  "name": "HookShield",
+  "version": "1.0.0",
+  "description": "Scan emails to detect phishing attempts before you get hooked",
   "icons": {
-   
+    "128": "icons/icon.png"
   },
   "action": {
-    "default_popup": "/popup/popup.html",
-    "default_title": "Check for phishing emails"
+    "default_popup": "popup/popup.html",
+    "default_title": "HookShield Phishing Detector",
+    "default_icon": "icons/icon.png"
   },
   "permissions": [
     "activeTab",
@@ -17,10 +18,15 @@
     "clipboardWrite"
   ],
   "host_permissions": [
-    "http://localhost:5000/*",
-    "https://your-production-domain.com/*"
+    "http://localhost:5000/*"
   ],
   "background": {
     "service_worker": "background.js"
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://mail.google.com/*", "*://outlook.live.com/*", "*://outlook.office.com/*"],
+      "js": ["content.js"]
+    }
+  ]
 }

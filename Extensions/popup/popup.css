@@ -1,87 +1,338 @@
-/* Gaya dasar untuk container popup */
+/* Base setup */
 body {
-    width: 300px;
-    height: 200px;
+    background: linear-gradient(to bottom, 
+        rgba(101, 40, 224, 0.15) 0%, 
+        rgba(101, 40, 224, 0.05) 25%, 
+        #f0f0ff 50%);
+    width: 329px;
+    height: 400px;
     margin: 0;
-    padding: 15px;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: #f5f5f5;
-  }
-  
-  .container {
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 12px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.container {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-  }
-  
-  h1 {
-    color: #202124;
-    font-size: 18px;
-    margin: 0 0 10px 0;
-    text-align: center;
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 10px;
-  }
-  
-  /* Gaya untuk textarea input email */
-  #emailText {
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    height: 100%;
     width: 100%;
-    height: 100px;
-    padding: 8px;
-    border: 1px solid #dadce0;
-    border-radius: 4px;
+}
+
+/* Welcome screen */
+.initial-state {
+    justify-content: space-between;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.shield-logo-large {
+    width: 131px;
+    height: 196px;
+    margin-bottom: 40px;
+    background-image: url('../icons/LogoBig.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.app-name {
+    color: #0066cc;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Input screen */
+.input-state {
+    align-items: flex-start;
+    padding-top: 15px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.logo-placeholder {
+    width: 31px;
+    height: 37px;
+    margin-right: 10px;
+    background-image: url('../icons/LogoSmall.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.tagline {
+    color: #333;
+    font-size: 14px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.content-section {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.content-label {
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.content-sublabel {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.input-box {
+    width: 100%;
+    height: 120px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
     resize: none;
     font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* Results screen */
+.result-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
     box-sizing: border-box;
-  }
-  
-  #emailText:focus {
-    outline: none;
-    border-color: #1a73e8;
-    box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
-  }
-  
-  /* Gaya untuk tombol deteksi */
-  #checkPhishing {
-    background-color: #1a73e8;
+    position: relative;
+    min-height: 100%;
+}
+
+/* Gauge animation system */
+.gauge-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gauge-wrapper.center-position {
+    transform: translateY(60px);
+}
+
+.gauge-wrapper.top-position {
+    transform: translateY(0);
+}
+
+.gauge-container {
+    position: relative;
+    width: 180px;
+    height: 120px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.percentage-display {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    display: none; /* Hidden when using SVG gauge */
+}
+
+.chance-text {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    color: #666;
+    letter-spacing: 0.5px;
+}
+
+/* Risk description box */
+.result-description {
+    width: calc(100% - 40px);
+    padding: 14px 16px;
+    margin: 0 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #333;
+    text-align: left;
+    max-height: 130px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.result-description.show {
+    opacity: 1;
+}
+
+/* Risk level badges */
+.result-description .risk-level {
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.result-description .risk-level.low {
+    color: #2e7d32;
+    background-color: #e8f5e9;
+}
+
+.result-description .risk-level.medium {
+    color: #ef6c00;
+    background-color: #fff3e0;
+}
+
+.result-description .risk-level.high {
+    color: #c62828;
+    background-color: #ffebee;
+}
+
+.result-description .description-text {
+    margin-bottom: 10px;
+    line-height: 1.6;
+    color: #444;
+}
+
+.result-description .recommendation {
+    font-style: normal;
+    color: #555;
+    padding-top: 10px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.result-description .research-ref {
+    font-size: 10px;
+    color: #999;
+    margin-top: 8px;
+    text-align: right;
+    font-style: italic;
+}
+
+/* Buttons */
+.start-button, 
+.detect-button, 
+.finish-button {
+    background-color: #6528e0;
     color: white;
     border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
+    padding: 12px 0;
+    width: 80%;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.3s;
-  }
-  
-  #checkPhishing:hover {
-    background-color: #1765cc;
-  }
-  
-  #checkPhishing:active {
-    background-color: #1458b8;
-  }
-  
-  /* Gaya untuk tampilan hasil */
-  #result {
-    padding: 10px;
-    border-radius: 4px;
-    text-align: center;
-    font-size: 14px;
-    margin-top: 5px;
-  }
-  
-  /* Animasi loading */
-  .loader {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #1a73e8;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    animation: spin 1s linear infinite;
+    text-transform: uppercase;
+    margin-top: auto;
+    box-shadow: 0 4px 15px rgba(101, 40, 224, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+.start-button:hover, 
+.detect-button:hover, 
+.finish-button:hover {
+    background-color: #5420c8;
+}
+
+.detect-button {
+    width: 100%;
+}
+
+/* Loading state */
+.detect-button.loading {
+    background-color: #999999;
+    cursor: not-allowed;
+    box-shadow: none;
+    transition: all 0.3s ease;
+}
+
+.loading-text {
+    display: inline-block;
+    position: relative;
+}
+
+.loading-text::after {
+    content: "....";
+    position: absolute;
+    animation: dots 1.5s infinite steps(4, end);
+}
+
+@keyframes dots {
+    0% { content: "."; }
+    25% { content: ".."; }
+    50% { content: "..."; }
+    75%, 100% { content: "...."; }
+}
+
+.finish-button {
+    width: 160px;
     margin: 0 auto;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+    padding: 10px 0;
+    font-size: 14px;
+    margin-top: auto;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.finish-button.show {
+    opacity: 1;
+}
+
+/* View controls - JS handles visibility */
+.initial-state,
+.input-state,
+.result-state {
+    display: none;
+}
+
+/* Custom scrollbar */
+.result-description::-webkit-scrollbar {
+    width: 5px;
+}
+
+.result-description::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+.result-description::-webkit-scrollbar-thumb {
+    background: #bbb;
+    border-radius: 5px;
+}
+
+.result-description::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
